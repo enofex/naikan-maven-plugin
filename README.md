@@ -7,7 +7,7 @@ Maven Usage
 
 ```xml
 <dependency>
-    <groupId>io.naikan</groupId>
+    <groupId>com.enofex</groupId>
     <artifactId>naikan-maven-plugin</artifactId>
     <version>latest-version</version>
 </dependency>

@@ -2,6 +2,17 @@
 
 This module provides a maven plugin which enrich the naikan json with information of the pom.xml.
 
+Maven Usage
+-------------------
+
+```xml
+<dependency>
+    <groupId>io.naikan</groupId>
+    <artifactId>naikan-maven-plugin</artifactId>
+    <version>latest-version</version>
+</dependency>
+```
+
 ## Contributing
 If you want to contribute to this project, then follow please these [instructions](https://github.com/naikan-projects/.github/tree/main/profile/CONTRIBUTING.md).
 

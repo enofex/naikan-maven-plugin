@@ -1,4 +1,4 @@
-# The naikan-maven-plugin module ![maven workflow](https://github.com/enofex/naikan-maven-plugin/actions/workflows/maven.yml/badge.svg)
+# The naikan-maven-plugin module ![maven workflow](https://github.com/enofex/naikan-maven-plugin/actions/workflows/maven.yml/badge.svg)[![](https://img.shields.io/badge/Java%20Version-17-orange)](/pom.xml)
 
 This module provides a maven plugin which enrich the naikan json with information of the pom.xml.
 

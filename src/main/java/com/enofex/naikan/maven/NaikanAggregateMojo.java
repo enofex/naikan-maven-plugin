@@ -4,7 +4,6 @@ import com.enofex.naikan.model.Bom;
 import com.enofex.naikan.model.serializer.SerializerFactory;
 import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.inject.Inject;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

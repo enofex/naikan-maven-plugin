@@ -3,7 +3,8 @@ package com.enofex.naikan.maven;
 import com.enofex.naikan.model.Bom;
 import org.apache.maven.project.MavenProject;
 
-public interface ModelConverter {
+public interface Provider<T> {
 
-  Bom convert(MavenProject project, Bom existingBom);
+  T provide(MavenProject project, Bom existingBom);
+
 }

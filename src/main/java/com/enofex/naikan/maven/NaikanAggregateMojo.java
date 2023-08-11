@@ -1,6 +1,7 @@
 package com.enofex.naikan.maven;
 
 import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.deserializer.DeserializerFactory;
 import com.enofex.naikan.model.serializer.SerializerFactory;
 import java.io.File;
 import java.nio.file.Path;
@@ -24,14 +25,14 @@ class NaikanAggregateMojo extends AbstractMojo {
   @Parameter(property = "project", readonly = true, required = true)
   private MavenProject project;
 
-  @Parameter(property = "outputName", defaultValue = "naikan.json")
-  private String outputName;
+  @Parameter(property = "outputFileName", defaultValue = "naikan.json")
+  private String outputFileName;
 
   @Parameter(property = "outputDirectory", defaultValue = "${project.build.directory}")
   private File outputDirectory;
 
-  @Parameter(property = "inputName", defaultValue = "naikan.json")
-  private String inputName;
+  @Parameter(property = "inputFileName", defaultValue = "naikan.json")
+  private String inputFileName;
 
   @Parameter(property = "inputDirectory", defaultValue = "${project.basedir}")
   private File inputDirectory;
@@ -45,13 +46,22 @@ class NaikanAggregateMojo extends AbstractMojo {
   @Override
   public void execute() throws MojoExecutionException {
     if (isShouldSkip()) {
-      getLog().info("Skipping Naikan");
+      getLog().info("Naikan: Skipping");
       return;
+    }
+
+    Path path = path(this.inputDirectory, this.inputFileName);
+    getLog().info(String.format("Naikan: Searching for existing BOM %s", path));
+    Bom existingBom = null;
+
+    if (path.toFile().exists()) {
+      getLog().info(String.format("Naikan: Found BOM %s", path));
+      existingBom = DeserializerFactory.newJsonDeserializer().of(path.toFile());
     }
 
     getLog().info("Naikan: Creating BOM");
 
-    Bom bom = this.modelConverter.convert(this.project);
+    Bom bom = this.modelConverter.convert(this.project, existingBom);
 
     if (bom != null) {
       generateBom(bom);
@@ -64,14 +74,18 @@ class NaikanAggregateMojo extends AbstractMojo {
 
   private void generateBom(Bom bom) throws MojoExecutionException {
     try {
-      Path file = Path.of(this.outputDirectory.getAbsolutePath(),this.outputName);
-      getLog().info(String.format("Naikan: Writing BOM %s", file));
+      Path path = path(this.outputDirectory, this.outputFileName);
+      getLog().info(String.format("Naikan: Writing BOM %s", path));
 
-      SerializerFactory.newJsonSerializer().toFile(bom, file.toString());
+      SerializerFactory.newJsonSerializer().toFile(bom, path.toString());
 
-      getLog().info(String.format("Naikan: Writing BOM %s finished", file));
+      getLog().info(String.format("Naikan: Writing BOM %s finished", path));
     } catch (Exception e) {
-      throw new MojoExecutionException("An error occurred writing BOM", e);
+      throw new MojoExecutionException("Naikan: An error occurred writing BOM", e);
     }
+  }
+
+  private Path path(File directory, String fileName) {
+    return Path.of(directory.getAbsolutePath(), fileName);
   }
 }

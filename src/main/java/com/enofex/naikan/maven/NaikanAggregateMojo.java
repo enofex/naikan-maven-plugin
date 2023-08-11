@@ -3,6 +3,9 @@ package com.enofex.naikan.maven;
 import com.enofex.naikan.model.Bom;
 import com.enofex.naikan.model.serializer.SerializerFactory;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.inject.Inject;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -37,7 +40,7 @@ class NaikanAggregateMojo extends AbstractMojo {
   @Parameter(property = "naikan.skip", defaultValue = "false")
   private boolean skip = false;
 
-  @org.apache.maven.plugins.annotations.Component
+  @Inject
   private ModelConverter modelConverter;
 
   @Override
@@ -62,12 +65,12 @@ class NaikanAggregateMojo extends AbstractMojo {
 
   private void generateBom(Bom bom) throws MojoExecutionException {
     try {
-      String fileName = this.outputDirectory + this.outputName;
-      getLog().info(String.format("Naikan: Writing BOM %s", fileName));
+      Path file = Path.of(this.outputDirectory.getAbsolutePath(),this.outputName);
+      getLog().info(String.format("Naikan: Writing BOM %s", file));
 
-      SerializerFactory.newJsonSerializer().toFile(bom, fileName);
+      SerializerFactory.newJsonSerializer().toFile(bom, file.toString());
 
-      getLog().info(String.format("Naikan: Writing BOM %s finished", fileName));
+      getLog().info(String.format("Naikan: Writing BOM %s finished", file));
     } catch (Exception e) {
       throw new MojoExecutionException("An error occurred writing BOM", e);
     }

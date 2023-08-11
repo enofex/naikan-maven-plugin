@@ -1,45 +1,75 @@
 package com.enofex.naikan.maven;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.serializer.SerializerFactory;
+import java.io.File;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.cyclonedx.model.Component;
 
 @Mojo(
-    name = "makeAggregateBom",
+    name = "aggregate",
     defaultPhase = LifecyclePhase.PACKAGE,
     threadSafe = true,
     aggregator = true,
     requiresOnline = true
 )
-class NaikanAggregateMojo extends AbstractNaikanMojo {
+class NaikanAggregateMojo extends AbstractMojo {
 
-  @Parameter(property = "reactorProjects", readonly = true, required = true)
-  private List<MavenProject> reactorProjects;
+  @Parameter(property = "project", readonly = true, required = true)
+  private MavenProject project;
+
+  @Parameter(property = "outputName", defaultValue = "naikan.json")
+  private String outputName;
+
+  @Parameter(property = "outputDirectory", defaultValue = "${project.build.directory}")
+  private File outputDirectory;
+
+  @Parameter(property = "inputName", defaultValue = "naikan.json")
+  private String inputName;
+
+  @Parameter(property = "inputDirectory", defaultValue = "${project.basedir}")
+  private File inputDirectory;
+
+  @Parameter(property = "naikan.skip", defaultValue = "false")
+  private boolean skip = false;
+
+  @org.apache.maven.plugins.annotations.Component
+  private ModelConverter modelConverter;
 
   @Override
-  protected String extractComponentsAndDependencies(Set<String> topLevelComponents,
-      Map<String, Component> components) {
-
-    if (!getProject().isExecutionRoot()) {
-      getLog().info("Skipping Naikan on non-execution root");
-      return null;
+  public void execute() throws MojoExecutionException {
+    if (isShouldSkip()) {
+      getLog().info("Skipping Naikan");
+      return;
     }
 
-    getLog().info((this.reactorProjects.size() <= 1)
-        ? MESSAGE_RESOLVING_DEPS
-        : MESSAGE_RESOLVING_AGGREGATED_DEPS);
+    getLog().info("Naikan: Creating BOM");
 
-    for (MavenProject mavenProject : this.reactorProjects) {
-      //Component projectBomComponent = convert(mavenProject.getArtifact());
-      //components.put(projectBomComponent.getPurl(), projectBomComponent);
-      //topLevelComponents.add(projectBomComponent.getPurl());
+    Bom bom = this.modelConverter.convert(this.project);
+
+    if (bom != null) {
+      generateBom(bom);
     }
+  }
 
-    return "makeAggregateBom";
+  private boolean isShouldSkip() {
+    return Boolean.parseBoolean(System.getProperty("naikan.skip", Boolean.toString(this.skip)));
+  }
+
+  private void generateBom(Bom bom) throws MojoExecutionException {
+    try {
+      String fileName = this.outputDirectory + this.outputName;
+      getLog().info(String.format("Naikan: Writing BOM %s", fileName));
+
+      SerializerFactory.newJsonSerializer().toFile(bom, fileName);
+
+      getLog().info(String.format("Naikan: Writing BOM %s finished", fileName));
+    } catch (Exception e) {
+      throw new MojoExecutionException("An error occurred writing BOM", e);
+    }
   }
 }

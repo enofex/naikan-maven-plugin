@@ -28,10 +28,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <naikan-model.version>0.1.1</naikan-model.version>
     <naikan-test.version>0.0.4</naikan-test.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <archunit.version>1.0.1</archunit.version>
 
+    <maven-plugin-api.version>3.9.4</maven-plugin-api.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
     <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
@@ -45,33 +47,92 @@
   <dependencies>
     <dependency>
       <groupId>com.enofex</groupId>
+      <artifactId>naikan-model</artifactId>
+      <version>${naikan-model.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.enofex</groupId>
       <artifactId>naikan-test</artifactId>
       <version>${naikan-test.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-dependency-analyzer</artifactId>
+      <version>1.13.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${maven-plugin-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>${maven-plugin-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>${maven-plugin-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <version>3.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.cyclonedx</groupId>
+      <artifactId>cyclonedx-core-java</artifactId>
+      <version>7.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-dependency-tree</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>io.takari.maven.plugins</groupId>
+      <artifactId>takari-plugin-integration-testing</artifactId>
+      <type>pom</type>
+      <scope>test</scope>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>io.takari.maven.plugins</groupId>
+      <artifactId>takari-plugin-testing</artifactId>
+      <scope>test</scope>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit-jupiter.version}</version>
-      <scope>provided</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <version>${junit-jupiter.version}</version>
-      <scope>provided</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit</artifactId>
       <version>${archunit.version}</version>
-      <scope>provided</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit-junit5-api</artifactId>
       <version>${archunit.version}</version>
-      <scope>provided</scope>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

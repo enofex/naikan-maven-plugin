@@ -1,17 +1,17 @@
 package com.enofex.naikan.maven;
 
-import com.enofex.naikan.maven.provider.ContactsProvider;
-import com.enofex.naikan.maven.provider.DevelopersProvider;
-import com.enofex.naikan.maven.provider.DocumentationsProvider;
-import com.enofex.naikan.maven.provider.EnvironmentsProvider;
-import com.enofex.naikan.maven.provider.IntegrationsProvider;
-import com.enofex.naikan.maven.provider.LicensesProvider;
-import com.enofex.naikan.maven.provider.OrganizationProvider;
-import com.enofex.naikan.maven.provider.ProjectProvider;
-import com.enofex.naikan.maven.provider.TagsProvider;
-import com.enofex.naikan.maven.provider.TeamsProvider;
-import com.enofex.naikan.maven.provider.TechnologiesProvider;
 import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.Contacts;
+import com.enofex.naikan.model.Developers;
+import com.enofex.naikan.model.Documentations;
+import com.enofex.naikan.model.Environments;
+import com.enofex.naikan.model.Integrations;
+import com.enofex.naikan.model.Licenses;
+import com.enofex.naikan.model.Organization;
+import com.enofex.naikan.model.Project;
+import com.enofex.naikan.model.Tags;
+import com.enofex.naikan.model.Teams;
+import com.enofex.naikan.model.Technologies;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -26,27 +26,27 @@ class DefaultModelConverter implements ModelConverter {
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
   @Inject
-  private ProjectProvider projectProvider;
+  private Provider<Project> projectProvider;
   @Inject
-  private OrganizationProvider organizationProvider;
+  private Provider<Organization> organizationProvider;
   @Inject
-  private EnvironmentsProvider environmentsProvider;
+  private Provider<Environments> environmentsProvider;
   @Inject
-  private TeamsProvider teamsProvider;
+  private Provider<Teams> teamsProvider;
   @Inject
-  private DevelopersProvider developersProvider;
+  private Provider<Developers> developersProvider;
   @Inject
-  private ContactsProvider contactsProvider;
+  private Provider<Contacts> contactsProvider;
   @Inject
-  private TechnologiesProvider technologiesProvider;
+  private Provider<Technologies> technologiesProvider;
   @Inject
-  private LicensesProvider licensesProvider;
+  private Provider<Licenses> licensesProvider;
   @Inject
-  private DocumentationsProvider documentationsProvider;
+  private Provider<Documentations> documentationsProvider;
   @Inject
-  private IntegrationsProvider integrationsProvider;
+  private Provider<Integrations> integrationsProvider;
   @Inject
-  private TagsProvider tagsProvider;
+  private Provider<Tags> tagsProvider;
 
   @Override
   public Bom convert(MavenProject project, Bom existingBom) {

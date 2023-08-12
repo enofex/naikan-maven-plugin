@@ -21,6 +21,10 @@ public class IntegrationsProvider extends AbstractProvider<Integrations> {
   public Integrations provide(MavenProject project, Bom existingBom) {
     List<Integration> integrations = new ArrayList<>();
 
+    if (existingBom != null) {
+      integrations.addAll(existingBom.integrations().all());
+    }
+
     scm(project, integrations);
     ciManagement(project, integrations);
 

@@ -38,7 +38,7 @@ class NaikanAggregateMojo extends AbstractMojo {
   private File inputDirectory;
 
   @Parameter(property = "naikan.skip", defaultValue = "false")
-  private boolean skip = false;
+  private boolean skip;
 
   @Inject
   private ModelConverter modelConverter;

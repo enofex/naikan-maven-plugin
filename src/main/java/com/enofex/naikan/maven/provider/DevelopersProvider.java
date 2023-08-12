@@ -2,13 +2,14 @@ package com.enofex.naikan.maven.provider;
 
 import com.enofex.naikan.maven.AbstractProvider;
 import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.Developer;
 import com.enofex.naikan.model.Developers;
 import com.enofex.naikan.model.Roles;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import org.apache.maven.model.Developer;
 import org.apache.maven.project.MavenProject;
 
 @Singleton
@@ -17,12 +18,14 @@ public class DevelopersProvider extends AbstractProvider<Developers> {
 
   @Override
   public Developers provide(MavenProject project, Bom existingBom) {
-    List<Developer> developers = project.getDevelopers();
+    List<Developer> developers = existingBom != null
+        ? new ArrayList<>(existingBom.developers().all())
+        : new ArrayList<>();
 
-    if (developers != null) {
-      return new Developers(developers
+    if (project.getDevelopers() != null) {
+      developers.addAll(project.getDevelopers()
           .stream()
-          .map(developer -> new com.enofex.naikan.model.Developer(
+          .map(developer -> new Developer(
               developer.getName(),
               null,
               null,
@@ -37,6 +40,6 @@ public class DevelopersProvider extends AbstractProvider<Developers> {
           .collect(Collectors.toList()));
     }
 
-    return Developers.empty();
+    return new Developers(developers);
   }
 }

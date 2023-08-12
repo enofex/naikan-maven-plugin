@@ -2,12 +2,13 @@ package com.enofex.naikan.maven.provider;
 
 import com.enofex.naikan.maven.AbstractProvider;
 import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.License;
 import com.enofex.naikan.model.Licenses;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import org.apache.maven.model.License;
 import org.apache.maven.project.MavenProject;
 
 @Singleton
@@ -16,10 +17,12 @@ public class LicensesProvider extends AbstractProvider<Licenses> {
 
   @Override
   public Licenses provide(MavenProject project, Bom existingBom) {
-    List<License> licenses = project.getLicenses();
+    List<License> licenses = existingBom != null
+        ? new ArrayList<>(existingBom.licenses().all())
+        : new ArrayList<>();
 
-    if (licenses != null) {
-      return new Licenses(licenses
+    if (project.getLicenses() != null) {
+      return new Licenses(project.getLicenses()
           .stream()
           .map(license -> new com.enofex.naikan.model.License(
               license.getName(),
@@ -28,6 +31,6 @@ public class LicensesProvider extends AbstractProvider<Licenses> {
           .collect(Collectors.toList()));
     }
 
-    return Licenses.empty();
+    return new Licenses(licenses);
   }
 }

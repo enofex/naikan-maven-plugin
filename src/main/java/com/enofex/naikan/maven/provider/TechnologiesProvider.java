@@ -19,18 +19,17 @@ public class TechnologiesProvider extends AbstractProvider<Technologies> {
   public Technologies provide(MavenProject project, Bom existingBom) {
     List<Technology> technologies = new ArrayList<>();
 
-    java(project, technologies);
+    property(project, technologies, "Java", "java.version");
 
     return new Technologies(technologies);
   }
 
-  private static void java(MavenProject project, List<Technology> technologies) {
-    if (project.getProperties().getProperty("java.version") != null) {
-      technologies.add(new Technology(
-          "Java",
-          project.getProperties().getProperty("java.version"),
-          null,
-          Tags.empty()));
+  private static void property(MavenProject project, List<Technology> technologies, String name,
+      String key) {
+    String property = project.getProperties().getProperty(key);
+
+    if (property != null) {
+      technologies.add(new Technology(name, property, null, Tags.empty()));
     }
   }
 }

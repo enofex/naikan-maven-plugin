@@ -12,7 +12,7 @@ Maven Usage
 <dependency>
     <groupId>com.enofex</groupId>
     <artifactId>naikan-maven-plugin</artifactId>
-    <version>latest-version</version>
+    <version>0.1.0</version>
     <executions>
       <execution>
         <phase>package</phase>

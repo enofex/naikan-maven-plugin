@@ -9,7 +9,7 @@ Maven Usage
 
 ```xml
 <!-- uses default configuration -->
-<dependency>
+<plugin>
     <groupId>com.enofex</groupId>
     <artifactId>naikan-maven-plugin</artifactId>
     <version>0.1.0</version>
@@ -21,7 +21,7 @@ Maven Usage
         </goals>
       </execution>
     </executions>
-</dependency>
+</plugin>
 ```
 
 Default Values

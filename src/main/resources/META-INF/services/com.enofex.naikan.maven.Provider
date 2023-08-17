@@ -15,3 +15,4 @@ com.enofex.naikan.maven.provider.pom.SpringBootStarterParentTechnologyProvider
 com.enofex.naikan.maven.provider.pom.LicensesProvider
 com.enofex.naikan.maven.provider.pom.OrganizationProvider
 com.enofex.naikan.maven.provider.pom.ProjectProvider
+com.enofex.naikan.maven.provider.pom.IntegrationsProvider

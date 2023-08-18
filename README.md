@@ -2,7 +2,13 @@
 <img height="20" src="https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg">
 # The naikan-maven-plugin module 
 
-This module provides a maven plugin which enrich the Naikan BOM with information of the pom.xml.
+The Naikan Maven Plugin is a tool designed to streamline and enhance the build and management process of Maven-based projects. This plugin facilitates the integration of project information from a Maven POM (Project Object Model) into the Naikan Bill of Materials (BOM), all while offering flexible customization through a variety of providers.
+
+At its core, the Naikan Maven Plugin serves as a bridge between your Maven project and the Naikan BOM. The plugin empowers developers to efficiently extract project metadata, such as versions, and other essential details, from the POM file. This extracted information is then seamlessly integrated into the Naikan BOM.
+
+One of the standout features of the Naikan Maven Plugin is its support for custom providers. Developers have the freedom to define their own data providers, allowing for tailored integration. This extensibility enables the plugin to adapt to the unique needs and structures of different projects.Additionally, the plugin offers the capability to fine-tune the order in which these custom providers are employed. 
+
+To further enhance the customization potential, the Naikan Maven Plugin supports the use of a custom `naikan.json` file. This JSON file can be added to your project, providing a centralized way to define additional information that should be merged into the Naikan BOM. 
 
 Maven Usage
 -------------------

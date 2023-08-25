@@ -15,7 +15,7 @@ public final class DevelopersProvider extends PomProvider<Developers> {
           .stream()
           .map(developer -> new Developer(
               developer.getName(),
-              null,
+              developer.getId(),
               null,
               null,
               developer.getEmail(),

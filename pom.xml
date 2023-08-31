@@ -28,7 +28,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <naikan-model.version>0.1.7</naikan-model.version>
+    <naikan-model.version>0.1.8</naikan-model.version>
     <naikan-test.version>0.0.7</naikan-test.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <archunit.version>1.0.1</archunit.version>

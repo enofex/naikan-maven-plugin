@@ -53,6 +53,11 @@ Goals
 The Naikan Maven plugin contains the following goals:
 * `aggregate`: creates a Naikan BOM for each Maven module and a Naikan BOM at parents root
 
+JVM Parameter
+-------------------
+* `-Dnaikan.skip=true`: skips the plugin
+* `-Dnaikan.json.prettyPrint=true`: json file output should be pretty printed
+
 ## Contributing
 If you want to contribute to this project, then follow please these [instructions](https://github.com/enofex/naikan/blob/main/CONTRIBUTING.md).
 

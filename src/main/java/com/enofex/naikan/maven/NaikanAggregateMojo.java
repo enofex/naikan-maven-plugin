@@ -3,8 +3,10 @@ package com.enofex.naikan.maven;
 import com.enofex.naikan.model.Bom;
 import com.enofex.naikan.model.deserializer.DeserializerFactory;
 import com.enofex.naikan.model.serializer.SerializerFactory;
+import com.enofex.naikan.model.serializer.json.JsonSerializer;
 import java.io.File;
 import java.nio.file.Path;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -21,6 +23,8 @@ import org.apache.maven.project.MavenProject;
 )
 class NaikanAggregateMojo extends AbstractMojo {
 
+  @Parameter(property = "session", readonly = true, required = true)
+  private MavenSession session;
   @Parameter(property = "project", readonly = true, required = true)
   private MavenProject project;
 
@@ -63,7 +67,7 @@ class NaikanAggregateMojo extends AbstractMojo {
 
     getLog().info("Naikan: Creating BOM");
 
-    Bom bom = this.modelConverter.convert(this.project, existingBom);
+    Bom bom = this.modelConverter.convert(this.session, this.project, existingBom);
 
     if (bom != null) {
       generateBom(bom);
@@ -83,7 +87,8 @@ class NaikanAggregateMojo extends AbstractMojo {
       Path path = path(this.outputDirectory, this.outputFileName);
       getLog().info(String.format("Naikan: Writing BOM %s", path));
 
-      SerializerFactory.newJsonSerializer().toFile(bom, path.toString());
+      ((JsonSerializer) SerializerFactory.newJsonSerializer())
+          .toFile(bom, path.toString(), isPrettyPrint());
 
       getLog().info(String.format("Naikan: Writing BOM %s finished", path));
     } catch (Exception e) {
@@ -93,5 +98,10 @@ class NaikanAggregateMojo extends AbstractMojo {
 
   private Path path(File directory, String fileName) {
     return Path.of(directory.getAbsolutePath(), fileName);
+  }
+
+  private boolean isPrettyPrint() {
+    return Boolean.parseBoolean(
+        System.getProperty("naikan.json.prettyPrint", Boolean.FALSE.toString()));
   }
 }

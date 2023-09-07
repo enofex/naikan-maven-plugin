@@ -2,12 +2,13 @@ package com.enofex.naikan.maven.provider.pom;
 
 import com.enofex.naikan.model.Bom;
 import com.enofex.naikan.model.Project;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 
 public final class ProjectProvider extends PomProvider<Project> {
 
   @Override
-  public Project provide(MavenProject project, Bom existingBom) {
+  public Project provide(MavenSession session, MavenProject project, Bom existingBom) {
     if (project != null) {
       return new Project(
           project.getName(),

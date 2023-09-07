@@ -6,6 +6,7 @@ import com.enofex.naikan.model.Integrations;
 import com.enofex.naikan.model.Tags;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.CiManagement;
 import org.apache.maven.model.DistributionManagement;
 import org.apache.maven.model.Scm;
@@ -14,7 +15,7 @@ import org.apache.maven.project.MavenProject;
 public final class IntegrationsProvider extends PomProvider<Integrations> {
 
   @Override
-  public Integrations provide(MavenProject project, Bom existingBom) {
+  public Integrations provide(MavenSession session, MavenProject project, Bom existingBom) {
     List<Integration> integrations = new ArrayList<>(5);
 
     scm(project, integrations);
@@ -26,19 +27,19 @@ public final class IntegrationsProvider extends PomProvider<Integrations> {
     return new Integrations(integrations);
   }
 
-  private static void scm(MavenProject project, List<Integration> integrations) {
+  private void scm(MavenProject project, List<Integration> integrations) {
     Scm scm = project.getScm();
 
     if (scm != null) {
       integrations.add(new Integration(
           "SCM",
           scm.getUrl(),
-          "The SCM (Source Control Management) of the project",
-          Tags.empty()));
+          "The SCM (Source Control Management) of the project.",
+          Tags.of("SCM")));
     }
   }
 
-  private static void ciManagement(MavenProject project, List<Integration> integrations) {
+  private void ciManagement(MavenProject project, List<Integration> integrations) {
     CiManagement ciManagement = project.getCiManagement();
 
     if (ciManagement != null) {
@@ -46,11 +47,11 @@ public final class IntegrationsProvider extends PomProvider<Integrations> {
           ciManagement.getSystem(),
           ciManagement.getUrl(),
           "The CI system of the project.",
-          Tags.empty()));
+          Tags.of("CI")));
     }
   }
 
-  private static void site(MavenProject project, List<Integration> integrations) {
+  private void site(MavenProject project, List<Integration> integrations) {
     DistributionManagement distributionManagement = project.getDistributionManagement();
 
     if (distributionManagement != null && distributionManagement.getSite() != null) {
@@ -58,11 +59,11 @@ public final class IntegrationsProvider extends PomProvider<Integrations> {
           distributionManagement.getSite().getName(),
           distributionManagement.getSite().getUrl(),
           null,
-          Tags.empty()));
+          Tags.of("Site")));
     }
   }
 
-  private static void repository(MavenProject project, List<Integration> integrations) {
+  private void repository(MavenProject project, List<Integration> integrations) {
     DistributionManagement distributionManagement = project.getDistributionManagement();
 
     if (distributionManagement != null && distributionManagement.getRepository() != null) {
@@ -70,11 +71,11 @@ public final class IntegrationsProvider extends PomProvider<Integrations> {
           distributionManagement.getRepository().getName(),
           distributionManagement.getRepository().getUrl(),
           "Deployment remote repository for this project.",
-          Tags.empty()));
+          Tags.of("Distribution Management")));
     }
   }
 
-  private static void snapshotRepository(MavenProject project, List<Integration> integrations) {
+  private void snapshotRepository(MavenProject project, List<Integration> integrations) {
     DistributionManagement distributionManagement = project.getDistributionManagement();
 
     if (distributionManagement != null && distributionManagement.getSnapshotRepository() != null) {
@@ -82,7 +83,7 @@ public final class IntegrationsProvider extends PomProvider<Integrations> {
           distributionManagement.getSnapshotRepository().getName(),
           distributionManagement.getSnapshotRepository().getUrl(),
           "Deployment remote snapshot repository for this project.",
-          Tags.empty()));
+          Tags.of("Snapshot Distribution Management")));
     }
   }
 

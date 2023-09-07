@@ -1,3 +1,13 @@
+com.enofex.naikan.maven.provider.pom.JavaTechnologyProvider
+com.enofex.naikan.maven.provider.pom.SpringBootStarterParentTechnologyProvider
+com.enofex.naikan.maven.provider.pom.MavenTechnologyProvider
+com.enofex.naikan.maven.provider.pom.LicensesProvider
+com.enofex.naikan.maven.provider.pom.OrganizationProvider
+com.enofex.naikan.maven.provider.pom.ProjectProvider
+com.enofex.naikan.maven.provider.pom.IntegrationsProvider
+com.enofex.naikan.maven.provider.git.RepositoryProvider
+com.enofex.naikan.maven.provider.git.IntegrationsProvider
+com.enofex.naikan.maven.provider.git.DevelopersProvider
 com.enofex.naikan.maven.provider.bom.ContactsProvider
 com.enofex.naikan.maven.provider.bom.DevelopersProvider
 com.enofex.naikan.maven.provider.bom.DocumentationsProvider
@@ -10,9 +20,3 @@ com.enofex.naikan.maven.provider.bom.TagsProvider
 com.enofex.naikan.maven.provider.bom.TeamsProvider
 com.enofex.naikan.maven.provider.bom.TechnologiesProvider
 com.enofex.naikan.maven.provider.pom.DevelopersProvider
-com.enofex.naikan.maven.provider.pom.JavaTechnologyProvider
-com.enofex.naikan.maven.provider.pom.SpringBootStarterParentTechnologyProvider
-com.enofex.naikan.maven.provider.pom.LicensesProvider
-com.enofex.naikan.maven.provider.pom.OrganizationProvider
-com.enofex.naikan.maven.provider.pom.ProjectProvider
-com.enofex.naikan.maven.provider.pom.IntegrationsProvider

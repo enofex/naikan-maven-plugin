@@ -1,10 +1,11 @@
 package com.enofex.naikan.maven.provider.bom;
 
-import com.enofex.naikan.maven.Provider;
+import com.enofex.naikan.maven.AbstractProvider;
 
-public abstract class BomProvider<T> implements Provider<T> {
+public abstract class BomProvider<T> extends AbstractProvider<T> {
 
-  int BOM_ORDER = 1073741824;
+  public static final int BOM_ORDER = 1073741824;
+
 
   @Override
   public int order() {

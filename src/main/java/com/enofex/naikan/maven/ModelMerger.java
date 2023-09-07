@@ -3,6 +3,7 @@ package com.enofex.naikan.maven;
 
 import com.enofex.naikan.model.AbstractContainer;
 import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.Branches;
 import com.enofex.naikan.model.Contact;
 import com.enofex.naikan.model.Contacts;
 import com.enofex.naikan.model.Developer;
@@ -17,6 +18,9 @@ import com.enofex.naikan.model.License;
 import com.enofex.naikan.model.Licenses;
 import com.enofex.naikan.model.Organization;
 import com.enofex.naikan.model.Project;
+import com.enofex.naikan.model.Repository;
+import com.enofex.naikan.model.RepositoryTag;
+import com.enofex.naikan.model.RepositoryTags;
 import com.enofex.naikan.model.Roles;
 import com.enofex.naikan.model.Tags;
 import com.enofex.naikan.model.Team;
@@ -30,19 +34,19 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 
-final class Merger {
+final class ModelMerger {
 
-  private Merger() {
+  private ModelMerger() {
   }
 
-
-  static <T> T merge(MavenProject project, Bom existingBom, Class<T> clazz) {
+  static <T> T merge(MavenSession session, MavenProject project, Bom existingBom, Class<T> clazz) {
     List<T> objects = ProviderFactory
         .providers(clazz)
         .stream()
-        .map(p -> p.provide(project, existingBom))
+        .map(p -> p.provide(session, project, existingBom))
         .toList();
 
     if (objects.size() == 1) {
@@ -110,6 +114,8 @@ final class Merger {
     } else if (o1 instanceof Integration) {
       return (T) merge((Integration) o1, (Integration) o2);
 
+    } else if (o1 instanceof Repository) {
+      return (T) merge((Repository) o1, (Repository) o2);
 
     } else if (o1 instanceof Tags) {
       return (T) mergeTags((Tags) o1, (Tags) o2);
@@ -144,12 +150,8 @@ final class Merger {
   }
 
   private static Project merge(Project p1, Project p2) {
-    if (p1.name() == null || !p1.name().equals(p2.name())) {
-      return p1;
-    }
-
     return new Project(
-        p1.name(),
+        p2.name() != null ? p2.name() : p1.name(),
         p2.inceptionYear() != null ? p2.inceptionYear() : p1.inceptionYear(),
         p2.url() != null ? p2.url() : p1.url(),
         p2.repository() != null ? p2.repository() : p1.repository(),
@@ -162,12 +164,8 @@ final class Merger {
   }
 
   private static Organization merge(Organization o1, Organization o2) {
-    if (o1.name() == null || !o1.name().equals(o2.name())) {
-      return o1;
-    }
-
     return new Organization(
-        o1.name(),
+        o2.name() != null ? o2.name() : o1.name(),
         o2.url() != null ? o2.url() : o1.url(),
         o2.department() != null ? o2.department() : o1.department(),
         o2.description() != null ? o2.description() : o1.description());
@@ -275,6 +273,18 @@ final class Merger {
         mergeTags(i1.tags(), i2.tags()));
   }
 
+  private static Repository merge(Repository r1, Repository r2) {
+    return new Repository(
+        r2.name() != null ? r2.name() : r1.name(),
+        r2.url() != null ? r2.url() : r1.url(),
+        r2.firstCommit() != null ? r2.firstCommit() : r1.firstCommit(),
+        r2.totalCommits() > 0 ? r2.totalCommits() : r1.totalCommits(),
+        r2.defaultBranch() != null ? r2.defaultBranch() : r1.defaultBranch(),
+        mergeBranches(r1.branches(), r2.branches()),
+        mergeRepositoryTags(r1.tags(), r2.tags()),
+        r2.commits() != null ? r2.commits() : r1.commits());
+  }
+
   private static Tags mergeTags(Tags first, Tags second) {
     return new Tags((List<String>) Stream.of(
             first != null ? first.all() : List.of(),
@@ -287,6 +297,27 @@ final class Merger {
 
   private static Roles mergeRoles(Roles first, Roles second) {
     return new Roles((List<String>) Stream.of(
+            first != null ? first.all() : List.of(),
+            second != null ? second.all() : List.of()
+        )
+        .flatMap(Collection::stream)
+        .distinct()
+        .toList());
+  }
+
+  private static Branches mergeBranches(Branches first, Branches second) {
+    return new Branches((List<String>) Stream.of(
+            first != null ? first.all() : List.of(),
+            second != null ? second.all() : List.of()
+        )
+        .flatMap(Collection::stream)
+        .distinct()
+        .toList());
+  }
+
+  private static RepositoryTags mergeRepositoryTags(RepositoryTags first,
+      RepositoryTags second) {
+    return new RepositoryTags((List<RepositoryTag>) Stream.of(
             first != null ? first.all() : List.of(),
             second != null ? second.all() : List.of()
         )

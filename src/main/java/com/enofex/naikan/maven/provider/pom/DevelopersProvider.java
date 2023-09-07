@@ -4,12 +4,15 @@ import com.enofex.naikan.model.Bom;
 import com.enofex.naikan.model.Developer;
 import com.enofex.naikan.model.Developers;
 import com.enofex.naikan.model.Roles;
+import java.util.List;
+import java.util.stream.Stream;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 
 public final class DevelopersProvider extends PomProvider<Developers> {
 
   @Override
-  public Developers provide(MavenProject project, Bom existingBom) {
+  public Developers provide(MavenSession session, MavenProject project, Bom existingBom) {
     if (project.getDevelopers() != null) {
       return new Developers(project.getDevelopers()
           .stream()
@@ -24,7 +27,9 @@ public final class DevelopersProvider extends PomProvider<Developers> {
               developer.getOrganizationUrl(),
               developer.getTimezone(),
               null,
-              new Roles(developer.getRoles())))
+              new Roles(Stream.of(List.of("Developer"), developer.getRoles())
+                  .flatMap(List::stream)
+                  .toList())))
           .toList());
     }
 

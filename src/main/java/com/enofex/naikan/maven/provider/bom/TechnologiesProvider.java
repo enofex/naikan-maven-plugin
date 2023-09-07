@@ -2,12 +2,13 @@ package com.enofex.naikan.maven.provider.bom;
 
 import com.enofex.naikan.model.Bom;
 import com.enofex.naikan.model.Technologies;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 
 public final class TechnologiesProvider extends BomProvider<Technologies> {
 
   @Override
-  public Technologies provide(MavenProject project, Bom existingBom) {
+  public Technologies provide(MavenSession session, MavenProject project, Bom existingBom) {
     return existingBom != null && existingBom.technologies() != null
         ? existingBom.technologies() : Technologies.empty();
   }

@@ -3,12 +3,13 @@ package com.enofex.naikan.maven.provider.pom;
 import com.enofex.naikan.model.Bom;
 import com.enofex.naikan.model.License;
 import com.enofex.naikan.model.Licenses;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 
 public final class LicensesProvider extends PomProvider<Licenses> {
 
   @Override
-  public Licenses provide(MavenProject project, Bom existingBom) {
+  public Licenses provide(MavenSession session, MavenProject project, Bom existingBom) {
     if (project.getLicenses() != null) {
       return new Licenses(project.getLicenses()
           .stream()

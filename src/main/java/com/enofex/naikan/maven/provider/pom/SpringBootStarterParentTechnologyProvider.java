@@ -6,6 +6,7 @@ import com.enofex.naikan.model.Technologies;
 import com.enofex.naikan.model.Technology;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 
 public final class SpringBootStarterParentTechnologyProvider extends PomProvider<Technologies> {
@@ -14,7 +15,7 @@ public final class SpringBootStarterParentTechnologyProvider extends PomProvider
   private static final String SPRING_BOOT_ARTIFACT_ID = "spring-boot-starter-parent";
 
   @Override
-  public Technologies provide(MavenProject project, Bom existingBom) {
+  public Technologies provide(MavenSession session, MavenProject project, Bom existingBom) {
     List<Technology> technologies = new ArrayList<>(1);
 
     while (project != null) {
@@ -24,8 +25,8 @@ public final class SpringBootStarterParentTechnologyProvider extends PomProvider
         technologies.add(new Technology(
             "Spring Boot",
             project.getParent().getVersion(),
-            null,
-            Tags.empty()));
+            "Spring Boot Starter Parent",
+            Tags.of("Backend")));
         break;
       }
     }

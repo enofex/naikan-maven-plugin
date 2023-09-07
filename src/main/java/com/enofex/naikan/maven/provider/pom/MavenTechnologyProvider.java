@@ -9,26 +9,31 @@ import java.util.List;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 
-public final class JavaTechnologyProvider extends PomProvider<Technologies> {
+public class MavenTechnologyProvider extends PomProvider<Technologies> {
 
   @Override
   public Technologies provide(MavenSession session, MavenProject project, Bom existingBom) {
     List<Technology> technologies = new ArrayList<>(1);
 
-    java(project, technologies);
+    maven(session, project, technologies);
 
     return new Technologies(technologies);
   }
 
-  private void java(MavenProject project, List<Technology> technologies) {
-    String version = project.getProperties().getProperty("java.version");
+  private void maven(MavenSession session, MavenProject project,
+      List<Technology> technologies) {
+    String mavenVersion = project.getProperties().getProperty("maven.version");
 
-    if (version != null) {
+    if (mavenVersion == null) {
+      mavenVersion = session.getSystemProperties().getProperty("maven.version");
+    }
+
+    if (mavenVersion != null) {
       technologies.add(new Technology(
-          "Java",
-          version,
-          null,
-          Tags.of("Backend")));
+          "Maven",
+          mavenVersion,
+          "The build automation tool for this project.",
+          Tags.of("Build automation tool")));
     }
   }
 

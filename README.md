@@ -57,6 +57,7 @@ JVM Parameter
 -------------------
 * `-Dnaikan.skip=true`: skips the plugin
 * `-Dnaikan.json.prettyPrint=true`: json file output should be pretty printed
+* `-Dnaikan.commits.last=3m`: specifies the time unit since the commits should be taken (2d,3w,5m,1y)
 
 ## Contributing
 If you want to contribute to this project, then follow please these [instructions](https://github.com/enofex/naikan/blob/main/CONTRIBUTING.md).

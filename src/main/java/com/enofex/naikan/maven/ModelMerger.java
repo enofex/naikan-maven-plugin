@@ -46,7 +46,7 @@ final class ModelMerger {
     List<T> objects = ProviderFactory
         .providers(clazz)
         .stream()
-        .map(p -> p.provide(session, project, existingBom))
+        .map(provider -> provider.provide(session, project, existingBom))
         .toList();
 
     if (objects.size() == 1) {

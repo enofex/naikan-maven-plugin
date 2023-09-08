@@ -34,7 +34,7 @@ public final class IntegrationsProvider extends PomProvider<Integrations> {
       integrations.add(new Integration(
           "SCM",
           scm.getUrl(),
-          "The SCM (Source Control Management) of the project.",
+          "The SCM of the project.",
           Tags.of("SCM")));
     }
   }

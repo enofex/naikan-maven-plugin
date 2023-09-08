@@ -12,12 +12,15 @@ import com.enofex.naikan.model.Repository;
 import com.enofex.naikan.model.RepositoryTag;
 import com.enofex.naikan.model.RepositoryTags;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.jgit.api.Git;
@@ -178,12 +181,17 @@ public final class RepositoryProvider extends GitProvider<Repository> {
           .add(repository.resolve(repository.getFullBranch()))
           .setRevFilter(RevFilter.NO_MERGES)
           .call();
+      LocalDate commitsSince = commitsSince();
 
       for (RevCommit commit : logCommits) {
-        String email = commit.getAuthorIdent().getEmailAddress();
+        LocalDate commitDate = commitDate(commit.getCommitTime()).toLocalDate();
 
-        if (email != null && !email.isBlank()) {
-          commits.add(commit(repository, commit));
+        if (commitDate.isAfter(commitsSince) || commitDate.isEqual(commitsSince)) {
+          String email = commit.getAuthorIdent().getEmailAddress();
+
+          if (email != null && !email.isBlank()) {
+            commits.add(commit(repository, commit));
+          }
         }
       }
 
@@ -272,6 +280,34 @@ public final class RepositoryProvider extends GitProvider<Repository> {
                 deletedFiles.size(),
                 changedFiles.size()))
     );
+  }
+
+  private LocalDate commitsSince() {
+    String last = System.getProperty("naikan.commits.last");
+
+    if (last != null) {
+      LocalDate now = LocalDate.now();
+      Pattern pattern = Pattern.compile("(\\d+)([dwmy])");
+      Matcher matcher = pattern.matcher(last);
+
+      if (matcher.matches()) {
+        int value = Integer.parseInt(matcher.group(1));
+        char unit = matcher.group(2).charAt(0);
+
+        switch (unit) {
+          case 'd':
+            return now.minusDays(value);
+          case 'w':
+            return now.minusWeeks(value);
+          case 'm':
+            return now.minusMonths(value);
+          case 'y':
+            return now.minusYears(value);
+        }
+      }
+    }
+
+    return LocalDate.MIN;
   }
 
   @Override

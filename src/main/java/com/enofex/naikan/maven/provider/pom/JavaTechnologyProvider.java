@@ -27,7 +27,7 @@ public final class JavaTechnologyProvider extends PomProvider<Technologies> {
       technologies.add(new Technology(
           "Java",
           version,
-          null,
+          "Object-oriented programming language",
           Tags.of("Backend")));
     }
   }

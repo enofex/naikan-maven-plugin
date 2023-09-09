@@ -199,7 +199,7 @@ final class ModelMerger {
     }
 
     return new Developer(
-        d2.name(),
+        d1.name(),
         d2.username() != null ? d2.username() : d1.username(),
         d2.title() != null ? d2.title() : d1.title(),
         d2.department() != null ? d2.department() : d1.department(),

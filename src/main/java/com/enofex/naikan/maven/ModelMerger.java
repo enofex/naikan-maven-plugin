@@ -194,16 +194,16 @@ final class ModelMerger {
   }
 
   private static Developer merge(Developer d1, Developer d2) {
-    if (d1.name() == null || !d1.name().equalsIgnoreCase(d2.name())) {
+    if (d1.email() == null || !d1.email().equalsIgnoreCase(d2.email())) {
       return d1;
     }
 
     return new Developer(
-        d1.name(),
+        d2.name() != null ? d2.name() : d1.name(),
         d2.username() != null ? d2.username() : d1.username(),
         d2.title() != null ? d2.title() : d1.title(),
         d2.department() != null ? d2.department() : d1.department(),
-        d2.email() != null ? d2.email() : d1.email(),
+        d1.email(),
         d2.phone() != null ? d2.phone() : d1.phone(),
         d2.organization() != null ? d2.organization() : d1.organization(),
         d2.organizationUrl() != null ? d2.organizationUrl() : d1.organizationUrl(),

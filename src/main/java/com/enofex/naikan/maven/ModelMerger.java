@@ -172,7 +172,7 @@ final class ModelMerger {
   }
 
   private static Environment merge(Environment e1, Environment e2) {
-    if (e1.name() == null || !e1.name().equals(e2.name())) {
+    if (e1.name() == null || !e1.name().equalsIgnoreCase(e2.name())) {
       return e1;
     }
 
@@ -184,7 +184,7 @@ final class ModelMerger {
   }
 
   private static Team merge(Team t1, Team t2) {
-    if (t1.name() == null || !t1.name().equals(t2.name())) {
+    if (t1.name() == null || !t1.name().equalsIgnoreCase(t2.name())) {
       return t1;
     }
 
@@ -194,7 +194,7 @@ final class ModelMerger {
   }
 
   private static Developer merge(Developer d1, Developer d2) {
-    if (d1.name() == null || !d1.name().equals(d2.name())) {
+    if (d1.name() == null || !d1.name().equalsIgnoreCase(d2.name())) {
       return d1;
     }
 
@@ -213,7 +213,7 @@ final class ModelMerger {
   }
 
   private static Contact merge(Contact c1, Contact c2) {
-    if (c1.name() == null || !c1.name().equals(c2.name())) {
+    if (c1.name() == null || !c1.name().equalsIgnoreCase(c2.name())) {
       return c1;
     }
 
@@ -227,7 +227,7 @@ final class ModelMerger {
   }
 
   private static Technology merge(Technology t1, Technology t2) {
-    if (t1.name() == null || !t1.name().equals(t2.name())) {
+    if (t1.name() == null || !t1.name().equalsIgnoreCase(t2.name())) {
       return t1;
     }
 
@@ -239,7 +239,7 @@ final class ModelMerger {
   }
 
   private static License merge(License l1, License l2) {
-    if (l1.name() == null || !l1.name().equals(l2.name())) {
+    if (l1.name() == null || !l1.name().equalsIgnoreCase(l2.name())) {
       return l1;
     }
 
@@ -250,7 +250,7 @@ final class ModelMerger {
   }
 
   private static Documentation merge(Documentation d1, Documentation d2) {
-    if (d1.name() == null || !d1.name().equals(d2.name())) {
+    if (d1.name() == null || !d1.name().equalsIgnoreCase(d2.name())) {
       return d1;
     }
 
@@ -262,7 +262,7 @@ final class ModelMerger {
   }
 
   private static Integration merge(Integration i1, Integration i2) {
-    if (i1.name() == null || !i1.name().equals(i2.name())) {
+    if (i1.name() == null || !i1.name().equalsIgnoreCase(i2.name())) {
       return i1;
     }
 

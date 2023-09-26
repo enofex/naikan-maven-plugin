@@ -1,6 +1,7 @@
 package com.enofex.naikan.maven.provider.git;
 
 import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.Branch;
 import com.enofex.naikan.model.Branches;
 import com.enofex.naikan.model.Commit;
 import com.enofex.naikan.model.CommitAuthor;
@@ -164,7 +165,7 @@ public final class RepositoryProvider extends GitProvider<Repository> {
           .setListMode(ListMode.REMOTE)
           .call()
           .stream()
-          .map(Ref::getName)
+          .map(ref -> new Branch(ref.getName()))
           .toList());
     } catch (Exception e) {
       getLog().error(e);

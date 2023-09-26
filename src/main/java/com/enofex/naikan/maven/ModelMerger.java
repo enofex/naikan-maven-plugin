@@ -3,6 +3,7 @@ package com.enofex.naikan.maven;
 
 import com.enofex.naikan.model.AbstractContainer;
 import com.enofex.naikan.model.Bom;
+import com.enofex.naikan.model.Branch;
 import com.enofex.naikan.model.Branches;
 import com.enofex.naikan.model.Contact;
 import com.enofex.naikan.model.Contacts;
@@ -306,7 +307,7 @@ final class ModelMerger {
   }
 
   private static Branches mergeBranches(Branches first, Branches second) {
-    return new Branches((List<String>) Stream.of(
+    return new Branches((List<Branch>) Stream.of(
             first != null ? first.all() : List.of(),
             second != null ? second.all() : List.of()
         )

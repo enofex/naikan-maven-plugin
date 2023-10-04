@@ -34,7 +34,7 @@
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <archunit.version>1.0.1</archunit.version>
 
-    <maven-plugin-api.version>3.9.4</maven-plugin-api.version>
+    <maven-plugin-api.version>3.9.5</maven-plugin-api.version>
     <maven-plugin-annotations.version>3.9.0</maven-plugin-annotations.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>

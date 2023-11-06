@@ -31,7 +31,7 @@
     <naikan-model.version>0.2.3</naikan-model.version>
     <naikan-test.version>0.0.14</naikan-test.version>
     <eclipse-jgit.version>6.7.0.202309050840-r</eclipse-jgit.version>
-    <junit-jupiter.version>5.10.0</junit-jupiter.version>
+    <junit-jupiter.version>5.10.1</junit-jupiter.version>
     <archunit.version>1.0.1</archunit.version>
 
     <maven-plugin-api.version>3.9.5</maven-plugin-api.version>

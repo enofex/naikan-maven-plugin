@@ -45,6 +45,8 @@ import org.eclipse.jgit.util.io.DisabledOutputStream;
 
 public final class RepositoryProvider extends GitProvider<Repository> {
 
+  private static final Pattern PATTERN = Pattern.compile("/|:");
+
   @Override
   public Repository provide(MavenSession session, MavenProject project, Bom existingBom) {
     org.eclipse.jgit.lib.Repository repository = gitRepository(project.getBasedir());
@@ -68,7 +70,7 @@ public final class RepositoryProvider extends GitProvider<Repository> {
     String url = url(repository);
 
     if (url != null) {
-      String[] parts = url.split("/|:");
+      String[] parts = PATTERN.split(url);
       String repositoryWithExtension = parts[parts.length - 1];
       int dotIndex = repositoryWithExtension.lastIndexOf('.');
 

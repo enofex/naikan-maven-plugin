@@ -30,7 +30,7 @@
 
     <naikan-model.version>0.2.7</naikan-model.version>
     <naikan-test.version>0.0.21</naikan-test.version>
-    <eclipse-jgit.version>6.8.0.202311291450-r</eclipse-jgit.version>
+    <eclipse-jgit.version>6.9.0.202403050737-r</eclipse-jgit.version>
     <junit-jupiter.version>5.10.2</junit-jupiter.version>
     <archunit.version>1.2.1</archunit.version>
 

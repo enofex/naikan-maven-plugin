@@ -18,7 +18,7 @@ Maven Usage
 <plugin>
     <groupId>com.enofex</groupId>
     <artifactId>naikan-maven-plugin</artifactId>
-    <version>0.2.10</version>
+    <version>0.2.11</version>
     <executions>
       <execution>
         <phase>package</phase>

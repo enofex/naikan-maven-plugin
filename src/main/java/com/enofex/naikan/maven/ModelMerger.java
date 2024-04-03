@@ -51,9 +51,9 @@ final class ModelMerger {
         .toList();
 
     if (objects.size() == 1) {
-      return objects.get(0);
+      return objects.getFirst();
     } else if (objects.size() > 1) {
-      T object = objects.get(0);
+      T object = objects.getFirst();
 
       for (int i = 1; i < objects.size(); i++) {
         object = merge(object, objects.get(i));
@@ -135,9 +135,9 @@ final class ModelMerger {
 
     for (Map.Entry<String, List<T>> entry : grouped.entrySet()) {
       if (entry.getValue().size() == 1) {
-        objects.add(entry.getValue().get(0));
+        objects.add(entry.getValue().getFirst());
       } else if (entry.getValue().size() > 1) {
-        T object = entry.getValue().get(0);
+        T object = entry.getValue().getFirst();
 
         for (int i = 1; i < entry.getValue().size(); i++) {
           object = merge(object, entry.getValue().get(i));

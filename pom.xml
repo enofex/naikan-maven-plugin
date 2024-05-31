@@ -13,7 +13,7 @@
   <artifactId>naikan-maven-plugin</artifactId>
   <version>1.0.3-SNAPSHOT</version>
   <name>Naikan Maven Plugin Module</name>
-  <inceptionYear>2023</inceptionYear>
+  <inceptionYear>2024</inceptionYear>
 
   <url>https://naikan.io</url>
   <description>
@@ -170,7 +170,7 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>17</version>
+                  <version>${java.version}</version>
                 </requireJavaVersion>
               </rules>    
             </configuration>

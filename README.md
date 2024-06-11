@@ -29,7 +29,7 @@ Maven Usage
     </executions>
 </plugin>
 ```
-The ${naikan-maven.version} property should be defined as a property in your Maven project to specify the version.
+The `${naikan-maven.version}` property should be defined as a property in your Maven project to specify the version.
 
 Default Values
 -------------------

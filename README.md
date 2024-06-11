@@ -18,7 +18,7 @@ Maven Usage
 <plugin>
     <groupId>com.enofex</groupId>
     <artifactId>naikan-maven-plugin</artifactId>
-    <version>1.0.2</version>
+    <version>${naikan-maven.version}</version>
     <executions>
       <execution>
         <phase>package</phase>
@@ -29,6 +29,7 @@ Maven Usage
     </executions>
 </plugin>
 ```
+The ${naikan-maven.version} property should be defined as a property in your Maven project to specify the version.
 
 Default Values
 -------------------

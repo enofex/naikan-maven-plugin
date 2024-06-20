@@ -1,6 +1,9 @@
 package com.enofex.naikan.maven.architecture;
 
 import com.enofex.taikai.Taikai;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 class ArchitectureTest {
@@ -12,12 +15,23 @@ class ArchitectureTest {
         .test(test -> test
             .junit5(junit5 -> junit5
                 .classesShouldNotBeAnnotatedWithDisabled()
-                .methodsShouldNotBeAnnotatedWithDisabled()))
+                .classesShouldBePackagePrivate(".*Test")
+                .methodsShouldNotBeAnnotatedWithDisabled()
+                .methodsShouldMatch("should.*")
+                .methodsShouldBePackagePrivate()
+                .methodsShouldNotDeclareExceptions()))
         .java(java -> java
-            .classesShouldImplementHashCodeAndEquals()
-            .methodsShouldNotThrowGenericException()
             .noUsageOfDeprecatedAPIs()
+            .noUsageOfSystemOutOrErr()
+            .noUsageOf(Date.class)
+            .noUsageOf(Calendar.class)
+            .noUsageOf(SimpleDateFormat.class)
+            .classesShouldImplementHashCodeAndEquals()
+            .finalClassesShouldNotHaveProtectedMembers()
             .utilityClassesShouldBeFinalAndHavePrivateConstructor()
+            .methodsShouldNotDeclareGenericExceptions()
+            .fieldsShouldNotBePublic()
+            .serialVersionUIDFieldsShouldBeStaticFinalLong()
             .imports(imports -> imports
                 .shouldHaveNoCycles()
                 .shouldNotImport("..shaded..")
@@ -25,7 +39,8 @@ class ArchitectureTest {
                 .shouldNotImport("org.junit.."))
             .naming(naming -> naming
                 .classesShouldNotMatch(".*Impl")
-                .interfacesShouldNotHavePrefixI()))
+                .interfacesShouldNotHavePrefixI()
+                .constantsShouldFollowConvention()))
         .build();
 
     taikai.check();

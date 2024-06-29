@@ -38,6 +38,7 @@ class ArchitectureTest {
                 .shouldNotImport("..lombok..")
                 .shouldNotImport("org.junit.."))
             .naming(naming -> naming
+                .packagesShouldMatch("com.enofex.naikan.maven..")
                 .classesShouldNotMatch(".*Impl")
                 .interfacesShouldNotHavePrefixI()
                 .constantsShouldFollowConventions()))

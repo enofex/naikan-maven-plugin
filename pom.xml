@@ -32,7 +32,7 @@
     <naikan-test.version>1.4.0</naikan-test.version>
     <eclipse-jgit.version>7.2.0.202503040940-r</eclipse-jgit.version>
     <junit-jupiter.version>5.12.2</junit-jupiter.version>
-    <archunit.version>1.4.0</archunit.version>
+    <archunit.version>1.4.1</archunit.version>
     <taikai.version>1.12.0</taikai.version>
 
     <maven-plugin-api.version>3.9.9</maven-plugin-api.version>

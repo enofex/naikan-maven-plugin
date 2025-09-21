@@ -29,7 +29,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <naikan-model.version>1.2.0</naikan-model.version>
-    <naikan-test.version>1.4.0</naikan-test.version>
+    <naikan-test.version>1.5.0</naikan-test.version>
     <eclipse-jgit.version>7.3.0.202506031305-r</eclipse-jgit.version>
     <junit-jupiter.version>5.13.4</junit-jupiter.version>
     <archunit.version>1.4.1</archunit.version>

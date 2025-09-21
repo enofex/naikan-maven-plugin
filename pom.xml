@@ -33,7 +33,7 @@
     <eclipse-jgit.version>7.3.0.202506031305-r</eclipse-jgit.version>
     <junit-jupiter.version>5.13.4</junit-jupiter.version>
     <archunit.version>1.4.1</archunit.version>
-    <taikai.version>1.12.0</taikai.version>
+    <taikai.version>1.37.0</taikai.version>
 
     <maven-plugin-api.version>3.9.11</maven-plugin-api.version>
     <maven-plugin-annotations.version>3.15.1</maven-plugin-annotations.version>

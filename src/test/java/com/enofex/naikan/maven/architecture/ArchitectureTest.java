@@ -13,7 +13,7 @@ class ArchitectureTest {
     Taikai taikai = Taikai.builder()
         .namespace("com.enofex.naikan.maven")
         .test(test -> test
-            .junit5(junit5 -> junit5
+            .junit(junit -> junit
                 .methodsShouldContainAssertionsOrVerifications()
                 .classesShouldNotBeAnnotatedWithDisabled()
                 .classesShouldBePackagePrivate(".*Test")
